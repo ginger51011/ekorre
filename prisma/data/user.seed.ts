@@ -1,14 +1,24 @@
 import { Prisma } from '@prisma/client';
 
+const defaultUsers: { firstName: string, lastName: string, class: string }[] = [
+    { firstName: "Elsa", lastName: "Oltegen", class: "E25" },
+    { firstName: "Erik", lastName: "Davidsson", class: "E24" },
+    { firstName: "Theodor", lastName: "Strube", class: "E24" },
+    { firstName: "Eric", lastName: "Hägerstrand", class: "E23" },
+    { firstName: "Axel", lastName: "Andersson", class: "Egammalt" },
+    { firstName: "Gustav", lastName: "Abrahamsson", class: "E23" },
+]
+const defaultUser = defaultUsers[Math.floor(Math.random() * defaultUsers.length)]
+
 export const users: Prisma.PrismaUserCreateInput[] = [
   {
     username: 'aa0000bb-s',
     passwordHash:
       'Y8IUptOZ0LI3sUUP6JVNtOZiNaIblxTTXBIJ4JIBFzr/PZgFoGHM0ua7hVFCb3yFSlyV/DI0/G/br7cU9qG4Ag==',
     passwordSalt: 'Z1w2IPe1l9nCKwWM6RV+PA==',
-    firstName: 'Emil',
-    lastName: 'Blennow',
-    class: 'E19',
+    firstName: defaultUser.firstName,
+    lastName: defaultUser.lastName,
+    class: defaultUser.class,
     email: 'aa0000bb-s@student.lu.se',
     luCard: '0025040000000001',
   },
