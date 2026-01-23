@@ -13,6 +13,5 @@ jobs:
     uses: esek/workflows/.github/workflows/main.yaml@main
     secrets: inherit
     with:
-      extended_testing: true
-      unlimited_service_deploy: true
       ekorre_quirk: true
+      unlimited_service_deploy: true
