@@ -9,7 +9,7 @@ type Query {
     posts(utskott: Utskott, includeInactive: Boolean): [Post!]!
     groupedPosts(includeInactive: Boolean): [GroupedPost!]!
     numberOfVolunteers(date: Date): Int!
-    posts_from_ids(ids: [Int!]!): [Post!]!
+    postsFromIDs(ids: [Int!]!): [Post!]!
 }
 
 type Mutation {
