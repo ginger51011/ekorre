@@ -5,6 +5,11 @@ Alla märkbara ändringar ska dokumenteras i denna fil.
 Baserat på [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 och följer [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.26.0] - 2026-01-26
+
+### Tillagt
+- query fler poster på id `post.graphql`
+
 ## [1.25.0] - 2025-11-24
 
 ### Tillagt

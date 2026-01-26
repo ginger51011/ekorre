@@ -51,6 +51,10 @@ const postresolver: Resolvers = {
     numberOfVolunteers: async (_, { date }) => {
       return api.getNumberOfVolunteers(date ?? undefined);
     },
+    postsFromIDs: async (_, { ids }) => {
+      const posts = await api.getPostsFromIDs(ids);
+      return reduce(posts, postReduce);
+    },
   },
   Mutation: {
     addPost: async (_, { info }, ctx) => {

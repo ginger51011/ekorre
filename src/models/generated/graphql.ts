@@ -1037,6 +1037,7 @@ export type Query = {
   postAccessEndDate: AccessEndDate;
   postAccessLogs: Array<AccessLogPost>;
   posts: Array<Post>;
+  postsFromIDs: Array<Post>;
   searchFiles: Array<File>;
   searchUser: Array<User>;
   ticket: Ticket;
@@ -1372,6 +1373,15 @@ export type QueryPostAccessEndDateArgs = {
 export type QueryPostsArgs = {
   includeInactive?: InputMaybe<Scalars['Boolean']>;
   utskott?: InputMaybe<Utskott>;
+};
+
+
+/**
+ * Queries and mutations that relies on an election being open
+ * does not take an `electionId` parameter.
+ */
+export type QueryPostsFromIDsArgs = {
+  ids: Array<Scalars['Int']>;
 };
 
 
@@ -2129,6 +2139,7 @@ export type QueryResolvers<ContextType = Context, ParentType extends ResolversPa
   postAccessEndDate?: Resolver<ResolversTypes['AccessEndDate'], ParentType, ContextType, RequireFields<QueryPostAccessEndDateArgs, 'postId'>>;
   postAccessLogs?: Resolver<Array<ResolversTypes['AccessLogPost']>, ParentType, ContextType>;
   posts?: Resolver<Array<ResolversTypes['Post']>, ParentType, ContextType, Partial<QueryPostsArgs>>;
+  postsFromIDs?: Resolver<Array<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<QueryPostsFromIDsArgs, 'ids'>>;
   searchFiles?: Resolver<Array<ResolversTypes['File']>, ParentType, ContextType, RequireFields<QuerySearchFilesArgs, 'search'>>;
   searchUser?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QuerySearchUserArgs, 'search'>>;
   ticket?: Resolver<ResolversTypes['Ticket'], ParentType, ContextType, RequireFields<QueryTicketArgs, 'id'>>;
