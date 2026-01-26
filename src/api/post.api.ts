@@ -189,6 +189,19 @@ export class PostAPI {
   }
 
   /**
+   * Retrieves all posts with ids in array
+   * @param ids The array of ids
+   */
+  async getPostsFromIDs(ids: number[]): Promise<PrismaPost[]> {
+    const posts = await prisma.prismaPost.findMany({
+      where: { id: { in: ids } },
+      orderBy: defaultOrder,
+    });
+
+    return posts;
+  }
+
+  /**
    * Adds multiple users to a post, within the dates provided
    * @param usernames List of usernames to be added to the post
    * @param id ID of the post
