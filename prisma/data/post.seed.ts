@@ -31,4 +31,14 @@ export const posts: Prisma.PrismaPostCreateInput[] = [
     interviewRequired: true,
     sortPriority: 0,
   },
+  {
+    postname: 'Pengamästare',
+    utskott: PrismaUtskott.PENGU,
+    postType: PrismaPostType.U,
+    spots: 1,
+    description: 'Pengakåt',
+    active: true,
+    interviewRequired: true,
+    sortPriority: 0,
+  },
 ];
