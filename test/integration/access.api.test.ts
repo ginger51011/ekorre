@@ -494,7 +494,7 @@ type IndividualAccessLogSimpel<T extends AccessLogIndividualAccess | AccessLogPo
 const expectedIndividualAccessLogs: IndividualAccessLogSimpel<AccessLogIndividualAccess>[] = [
   {
     grantor: username0,
-    isActive: true,
+    isActive: false,
     resource: 'bd',
     resourceType: AccessResourceType.Door,
     endDate: null,
@@ -502,7 +502,7 @@ const expectedIndividualAccessLogs: IndividualAccessLogSimpel<AccessLogIndividua
   },
   {
     grantor: username0,
-    isActive: true,
+    isActive: false,
     resource: 'access_admin',
     resourceType: AccessResourceType.Feature,
     endDate: null,
@@ -510,7 +510,7 @@ const expectedIndividualAccessLogs: IndividualAccessLogSimpel<AccessLogIndividua
   },
   {
     grantor: username0,
-    isActive: false,
+    isActive: true,
     resource: 'bd',
     resourceType: AccessResourceType.Door,
     endDate: null,
@@ -518,7 +518,7 @@ const expectedIndividualAccessLogs: IndividualAccessLogSimpel<AccessLogIndividua
   },
   {
     grantor: username0,
-    isActive: false,
+    isActive: true,
     resource: 'access_admin',
     resourceType: AccessResourceType.Feature,
     endDate: null,
