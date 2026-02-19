@@ -117,8 +117,8 @@ const setGetTest = async (
 // #region Expected values
 
 const accessSingleInput: AccessEndDateInput = {
-  doorEndDates: [{ resource:Door.Bd, endDate:null}],
-  featureEndDates:[{ resource:Feature.AccessAdmin, endDate:null}],
+  doorEndDates: [{ resource: Door.Bd, endDate: null }],
+  featureEndDates: [{ resource: Feature.AccessAdmin, endDate: null }],
 };
 
 const accessSingleNoEndDateInput: AccessInput = {
@@ -127,13 +127,13 @@ const accessSingleNoEndDateInput: AccessInput = {
 };
 
 const accessSingleFutureEndDateInput: AccessEndDateInput = {
-  doorEndDates: [{ resource:Door.Bd, endDate: new Date(9999,11,31)}],
-  featureEndDates:[{ resource:Feature.AccessAdmin, endDate: new Date(9999,11,31)}],
+  doorEndDates: [{ resource: Door.Bd, endDate: new Date(9999, 11, 31) }],
+  featureEndDates: [{ resource: Feature.AccessAdmin, endDate: new Date(9999, 11, 31) }],
 };
 
 const accessSinglePastEndDateInput: AccessEndDateInput = {
-  doorEndDates: [{ resource:Door.Bd, endDate: new Date(2000,0,1)}],
-  featureEndDates:[{ resource:Feature.AccessAdmin, endDate: new Date(2000,0,1)}],
+  doorEndDates: [{ resource: Door.Bd, endDate: new Date(2000, 0, 1) }],
+  featureEndDates: [{ resource: Feature.AccessAdmin, endDate: new Date(2000, 0, 1) }],
 };
 
 const expectedAccessSingleInput: Partial<UnionPrismaAccess>[] = [
@@ -148,8 +148,8 @@ const expectedAccessSingleInput: Partial<UnionPrismaAccess>[] = [
 ];
 
 const otherAccessSingleInput: AccessEndDateInput = {
-  doorEndDates: [{ resource:Door.Hk, endDate:null}],
-  featureEndDates:[{ resource:Feature.Superadmin, endDate:null}],
+  doorEndDates: [{ resource: Door.Hk, endDate: null }],
+  featureEndDates: [{ resource: Feature.Superadmin, endDate: null }],
 };
 
 const otheraccessSingleNoEndDateInput: AccessInput = {
@@ -169,8 +169,14 @@ const expectedAccessOtherSingleInput: Partial<UnionPrismaAccess>[] = [
 ];
 
 const accessMultipleInput: AccessEndDateInput = {
-  doorEndDates: [{resource:Door.Bd, endDate:null}, {resource:Door.Hk, endDate:null}],
-  featureEndDates:[{resource:Feature.AccessAdmin, endDate:null}, {resource:Feature.Superadmin, endDate:null}],
+  doorEndDates: [
+    { resource: Door.Bd, endDate: null },
+    { resource: Door.Hk, endDate: null },
+  ],
+  featureEndDates: [
+    { resource: Feature.AccessAdmin, endDate: null },
+    { resource: Feature.Superadmin, endDate: null },
+  ],
 };
 
 const accessMultipleNoEndDateInput: AccessInput = {
@@ -197,16 +203,19 @@ const expectedAccessMultipleInput: Partial<UnionPrismaAccess>[] = [
   },
 ];
 
-const emptyAccess: AccessEndDateInput = { 
+const emptyAccess: AccessEndDateInput = {
   doorEndDates: [],
-  featureEndDates:[],
+  featureEndDates: [],
 };
 
 const emptyNoEndDateAccess: AccessInput = { doors: [], features: [] };
 
 const accessWithUnkownFeature: AccessEndDateInput = {
   doorEndDates: [],
-  featureEndDates:[{resource:Feature.Superadmin, endDate:null}, {resource:'unknown' as Feature, endDate:null}],
+  featureEndDates: [
+    { resource: Feature.Superadmin, endDate: null },
+    { resource: 'unknown' as Feature, endDate: null },
+  ],
 };
 
 const accessWithUnkownFeatureNoEndDate: AccessInput = {
@@ -215,8 +224,11 @@ const accessWithUnkownFeatureNoEndDate: AccessInput = {
 };
 
 const accessWithUnkownDoor: AccessEndDateInput = {
-  doorEndDates: [{resource:Door.Bd, endDate:null}, {resource:'unknown' as Door, endDate:null}],
-  featureEndDates:[],
+  doorEndDates: [
+    { resource: Door.Bd, endDate: null },
+    { resource: 'unknown' as Door, endDate: null },
+  ],
+  featureEndDates: [],
 };
 
 const accessWithUnkownDoorNoEndDate: AccessInput = {
@@ -307,7 +319,7 @@ describe('setting/getting access for user', () => {
     await setGetTest(setAccess(emptyAccess), getAccess, []);
   });
 
-    it('setting single access with future end date', async () => {
+  it('setting single access with future end date', async () => {
     await setGetTest(setAccess(accessSinglePastEndDateInput), getAccess, []);
   });
 
@@ -470,19 +482,19 @@ describe('getting combined access', () => {
 const accessTestSequence: AccessEndDateInput[] = [
   {
     doorEndDates: [],
-    featureEndDates:[],
+    featureEndDates: [],
   },
   {
     doorEndDates: [],
-    featureEndDates:[],
+    featureEndDates: [],
   },
   {
-    doorEndDates: [{ resource:Door.Bd, endDate:null}],
-    featureEndDates:[{ resource:Feature.AccessAdmin, endDate:null}],
+    doorEndDates: [{ resource: Door.Bd, endDate: null }],
+    featureEndDates: [{ resource: Feature.AccessAdmin, endDate: null }],
   },
   {
     doorEndDates: [],
-    featureEndDates:[],
+    featureEndDates: [],
   },
 ];
 
