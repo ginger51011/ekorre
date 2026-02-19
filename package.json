@@ -1,6 +1,6 @@
 {
     "name": "ekorre-ts",
-    "version": "1.27.1",
+    "version": "1.28.0",
     "description": "E-Sektionens backend",
     "main": "src/index.ts",
     "scripts": {
@@ -33,7 +33,9 @@
         "Marcus Lindell <lindellmarcus99@gmail.com>",
         "Eric Weidow <eric@weidow.se>",
         "Axel Andersson <axel.so.andersson@gmail.com>",
-        "Pontus Sjöstedt <pontus.sjo.arbete@outlook.com>"
+        "Pontus Sjöstedt <pontus.sjo.arbete@outlook.com>",
+        "Eric Hägerstrand <erogigabyte@gmail.com>",
+        "Gustav Abrahamsson <gustav.a.abrahamsson@gmail.com>"
     ],
     "bugs": {
         "email": "macapar@esek.se"

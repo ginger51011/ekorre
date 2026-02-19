@@ -152,11 +152,6 @@ const otherAccessSingleInput: AccessEndDateInput = {
   featureEndDates: [{ resource: Feature.Superadmin, endDate: null }],
 };
 
-const otheraccessSingleNoEndDateInput: AccessInput = {
-  doors: [Door.Hk],
-  features: [Feature.Superadmin],
-};
-
 const expectedAccessOtherSingleInput: Partial<UnionPrismaAccess>[] = [
   {
     resource: Door.Hk,
@@ -177,11 +172,6 @@ const accessMultipleInput: AccessEndDateInput = {
     { resource: Feature.AccessAdmin, endDate: null },
     { resource: Feature.Superadmin, endDate: null },
   ],
-};
-
-const accessMultipleNoEndDateInput: AccessInput = {
-  doors: [Door.Bd, Door.Hk],
-  features: [Feature.AccessAdmin, Feature.Superadmin],
 };
 
 const expectedAccessMultipleInput: Partial<UnionPrismaAccess>[] = [
@@ -208,8 +198,6 @@ const emptyAccess: AccessEndDateInput = {
   featureEndDates: [],
 };
 
-const emptyNoEndDateAccess: AccessInput = { doors: [], features: [] };
-
 const accessWithUnkownFeature: AccessEndDateInput = {
   doorEndDates: [],
   featureEndDates: [
@@ -218,22 +206,12 @@ const accessWithUnkownFeature: AccessEndDateInput = {
   ],
 };
 
-const accessWithUnkownFeatureNoEndDate: AccessInput = {
-  doors: [],
-  features: [Feature.Superadmin, 'unknown' as Feature],
-};
-
 const accessWithUnkownDoor: AccessEndDateInput = {
   doorEndDates: [
     { resource: Door.Bd, endDate: null },
     { resource: 'unknown' as Door, endDate: null },
   ],
   featureEndDates: [],
-};
-
-const accessWithUnkownDoorNoEndDate: AccessInput = {
-  doors: [Door.Bd, 'unknown' as Door],
-  features: [],
 };
 
 // #endregion
@@ -319,7 +297,7 @@ describe('setting/getting access for user', () => {
     await setGetTest(setAccess(emptyAccess), getAccess, []);
   });
 
-  it('setting single access with future end date', async () => {
+  it('setting single access with past end date', async () => {
     await setGetTest(setAccess(accessSinglePastEndDateInput), getAccess, []);
   });
 
@@ -346,7 +324,7 @@ describe('setting/getting access for user', () => {
 
 describe('setting/getting access for apikey', () => {
   const setAccess =
-    (input: AccessInput, apikey = apiKey) =>
+    (input: AccessEndDateInput, apikey = apiKey) =>
     () =>
       accessApi.setApiKeyAccess(apikey, input);
   const getAccess = (apikey = apiKey) => accessApi.getApiKeyAccess(apikey);
@@ -354,35 +332,46 @@ describe('setting/getting access for apikey', () => {
   it('setting single access', async () => {
     const expectedAccess = mapApiKeyAccess(expectedAccessSingleInput);
 
-    await setGetTest(setAccess(accessSingleNoEndDateInput), getAccess, expectedAccess);
+    await setGetTest(setAccess(accessSingleInput), getAccess, expectedAccess);
   });
 
   it('changing access', async () => {
     const expectedAccess = mapApiKeyAccess(expectedAccessOtherSingleInput);
 
-    await setGetTest(setAccess(otheraccessSingleNoEndDateInput), getAccess, expectedAccess);
+    await setGetTest(setAccess(otherAccessSingleInput), getAccess, expectedAccess);
   });
 
   it('setting access with multiple features', async () => {
     const expectedAccess = mapApiKeyAccess(expectedAccessMultipleInput);
 
-    await setGetTest(setAccess(accessMultipleNoEndDateInput), getAccess, expectedAccess);
+    await setGetTest(setAccess(accessMultipleInput), getAccess, expectedAccess);
+  });
+
+  it('setting single access with future end date', async () => {
+    const expectedAccess = mapApiKeyAccess(expectedAccessSingleInput);
+
+    await setGetTest(setAccess(accessSingleFutureEndDateInput), getAccess, expectedAccess);
   });
 
   it('removing access', async () => {
-    await setGetTest(setAccess(emptyNoEndDateAccess), getAccess, []);
+    await setGetTest(setAccess(emptyAccess), getAccess, []);
   });
 
+  it('setting single access with past end date', async () => {
+    await setGetTest(setAccess(accessSinglePastEndDateInput), getAccess, []);
+  });
+
+
   it('setting access for unkown', async () => {
-    await expect(setAccess(accessSingleNoEndDateInput, 'unknown')).rejects.toThrowError();
+    await expect(setAccess(accessSingleInput, 'unknown')).rejects.toThrowError();
   });
 
   it('setting access with invalid feature', async () => {
-    await expect(setAccess(accessWithUnkownFeatureNoEndDate)).rejects.toThrowError();
+    await expect(setAccess(accessWithUnkownFeature)).rejects.toThrowError();
   });
 
   it('setting access with invalid door', async () => {
-    await expect(setAccess(accessWithUnkownDoorNoEndDate)).rejects.toThrowError();
+    await expect(setAccess(accessWithUnkownDoor)).rejects.toThrowError();
   });
 
   it('getting access for unkown', async () => {

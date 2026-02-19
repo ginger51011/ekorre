@@ -5,11 +5,15 @@ Alla märkbara ändringar ska dokumenteras i denna fil.
 Baserat på [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 och följer [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.28.0] - 2026-02-19
+
+### Ändrat
+ - Flyttat ApiKeys till att använda `AccessEndDate` och därför ha ett slutdatum
+
 ## [1.27.1] - 2026-02-12
 
 ### Tillagt
 - Fixat ett test genom att ändra förväntad ordning för 1.27.0 ändringen i `access.api.test.ts` i variabeln `expectedIndividualAccessLogs`
-
 
 ## [1.27.0] - 2026-02-05
 

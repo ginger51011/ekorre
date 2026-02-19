@@ -90,7 +90,7 @@ const accessresolver: Resolvers = {
   ApiKey: {
     access: async ({ key }) => {
       const access = await accessApi.getApiKeyAccess(key);
-      return accessReducer(access);
+      return accessEndDateReducer(access);
     },
   },
   User: {
