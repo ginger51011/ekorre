@@ -350,13 +350,17 @@ export class AccessAPI {
     return res.count === access.length;
   }
 
-  async getAllPostLogs(): Promise<PrismaPostAccessLog[]> {
-    const values = await prisma.prismaPostAccessLog.findMany({});
+  async getAllPostLogs(): Promise<PrismaPostAccessLog[]> {//Post access logs
+    const values = await prisma.prismaPostAccessLog.findMany({ orderBy: {
+      timestamp: "desc", 
+    },});
     return values;
   }
 
   async getAllIndividualAccessLogs(): Promise<PrismaIndividualAccessLog[]> {
-    const values = await prisma.prismaIndividualAccessLog.findMany({});
+    const values = await prisma.prismaIndividualAccessLog.findMany({   orderBy: {
+      timestamp: "desc", 
+    },});
     return values;
   }
 
