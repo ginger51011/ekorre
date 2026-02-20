@@ -94,7 +94,7 @@ export enum ActivitySource {
 }
 
 export type ApiKey = {
-  access: Access;
+  access: AccessEndDate;
   creator: User;
   description: Scalars['String'];
   key: Scalars['String'];
@@ -773,7 +773,7 @@ export type MutationSendEmailArgs = {
 
 
 export type MutationSetApiKeyAccessArgs = {
-  access: AccessInput;
+  access: AccessEndDateInput;
   key: Scalars['String'];
 };
 
@@ -1807,7 +1807,7 @@ export type ActivityResolvers<ContextType = Context, ParentType extends Resolver
 }>;
 
 export type ApiKeyResolvers<ContextType = Context, ParentType extends ResolversParentTypes['ApiKey'] = ResolversParentTypes['ApiKey']> = ResolversObject<{
-  access?: Resolver<ResolversTypes['Access'], ParentType, ContextType>;
+  access?: Resolver<ResolversTypes['AccessEndDate'], ParentType, ContextType>;
   creator?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   key?: Resolver<ResolversTypes['String'], ParentType, ContextType>;

@@ -212,7 +212,13 @@ export const genApiKey = (
       await userApi.createUser(userInfo);
     }
     apikey = await apiKeyApi.createApiKey('Test API key', userInfo.username);
-    await accessApi.setApiKeyAccess(apikey, { features: access, doors: [] });
+    await accessApi.setApiKeyAccess(apikey, {
+      doorEndDates: [],
+      featureEndDates: access.map((a) => ({
+        resource: a,
+        endDate: null,
+      })) as FeatureEndDateInput[],
+    });
 
     return apikey;
   };

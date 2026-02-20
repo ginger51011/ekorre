@@ -128,6 +128,7 @@ model PrismaApiKeyAccess {
   refApiKey    String             @map("ref_api_key")
   resourceType PrismaResourceType @map("resource_type")
   resource     String             @map("resource")
+  endDate      DateTime?          @map("end_date")
 
   @@map("api_key_accesses")
 }
