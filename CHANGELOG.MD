@@ -5,6 +5,13 @@ Alla märkbara ändringar ska dokumenteras i denna fil.
 Baserat på [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 och följer [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+
+
+## [1.29.0] - 2026-02-19
+
+### Ändrat
+ - Tog bort allt som hade med latexify att göra. Så korkad implementation ngl...
+
 ## [1.28.0] - 2026-02-19
 
 ### Ändrat
