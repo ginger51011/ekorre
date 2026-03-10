@@ -3,7 +3,7 @@ import { ServerError } from '@/errors/request.errors';
 import { Logger } from '@/logger';
 import { AccessEntry, AccessLogEntry } from '@/models/access';
 import { devGuard } from '@/util';
-import { AccessInput, AccessEndDateInput, Door, Feature } from '@generated/graphql';
+import { AccessEndDateInput, Door, Feature } from '@generated/graphql';
 import {
   Prisma,
   PrismaApiKeyAccess,
@@ -85,6 +85,14 @@ export class AccessAPI {
     const access = await prisma.prismaApiKeyAccess.findMany({
       where: {
         refApiKey: apiKey,
+        OR: [
+          {
+            endDate: { gte: new Date() },
+          },
+          {
+            endDate: null,
+          },
+        ],
       },
       orderBy: {
         resource: 'asc',
@@ -236,29 +244,31 @@ export class AccessAPI {
    * @param key The API key for which access is to be changed
    * @param newAccess The new access for this API  key
    */
-  async setApiKeyAccess(key: string, newAccess: AccessInput): Promise<boolean> {
-    const { doors, features } = newAccess;
+  async setApiKeyAccess(key: string, newAccess: AccessEndDateInput): Promise<boolean> {
+    const { doorEndDates, featureEndDates } = newAccess;
     const access: Prisma.PrismaApiKeyAccessUncheckedCreateInput[] = [];
 
-    doors.forEach((door) => {
-      if (!Object.values(Door).includes(door)) {
-        throw new ServerError(`${door} är inte en känd dörr`);
+    doorEndDates.forEach((doorEndDate) => {
+      if (!Object.values(Door).includes(doorEndDate.resource)) {
+        throw new ServerError(`${doorEndDate.resource} är inte en känd dörr`);
       }
       access.push({
         refApiKey: key,
         resourceType: PrismaResourceType.door,
-        resource: door as string,
+        resource: doorEndDate.resource,
+        endDate: doorEndDate.endDate,
       });
     });
 
-    features.forEach((feature) => {
-      if (!Object.values(Feature).includes(feature)) {
-        throw new ServerError(`${feature} är inte en känd feature`);
+    featureEndDates.forEach((featureEndDate) => {
+      if (!Object.values(Feature).includes(featureEndDate.resource)) {
+        throw new ServerError(`${featureEndDate.resource} är inte en känd feature`);
       }
       access.push({
         refApiKey: key,
         resourceType: PrismaResourceType.feature,
-        resource: feature,
+        resource: featureEndDate.resource,
+        endDate: featureEndDate.endDate,
       });
     });
 
@@ -351,12 +361,21 @@ export class AccessAPI {
   }
 
   async getAllPostLogs(): Promise<PrismaPostAccessLog[]> {
-    const values = await prisma.prismaPostAccessLog.findMany({});
+    //Post access logs
+    const values = await prisma.prismaPostAccessLog.findMany({
+      orderBy: {
+        timestamp: 'desc',
+      },
+    });
     return values;
   }
 
   async getAllIndividualAccessLogs(): Promise<PrismaIndividualAccessLog[]> {
-    const values = await prisma.prismaIndividualAccessLog.findMany({});
+    const values = await prisma.prismaIndividualAccessLog.findMany({
+      orderBy: {
+        timestamp: 'desc',
+      },
+    });
     return values;
   }
 

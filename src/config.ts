@@ -60,14 +60,6 @@ const PDF_TO_PNG = {
   URL: process.env.PDF_TO_PNG_BASE_URL ?? '',
 };
 
-/**
- * Config for LaTeXify
- * @param {string} URL - The base URL for the LaTeXify microservice
- */
-const LATEXIFY = {
-  URL: process.env.LATEXIFY_URL ?? '',
-};
-
 const VERIFY = {
   URL: process.env.VERIFY_URL ?? '',
 };
@@ -89,7 +81,6 @@ const config = {
   LU,
   WIKI,
   PDF_TO_PNG,
-  LATEXIFY,
   VERIFY,
   JWT,
 };

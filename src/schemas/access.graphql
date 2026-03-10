@@ -16,7 +16,7 @@ type Query {
 type Mutation {
     setIndividualAccess(username: String!, access: AccessEndDateInput!): Boolean!
     setPostAccess(postId: Int!, access: AccessEndDateInput!): Boolean!
-    setApiKeyAccess(key: String!, access: AccessInput!): Boolean!
+    setApiKeyAccess(key: String!, access: AccessEndDateInput!): Boolean!
 }
 
 extend type User {
