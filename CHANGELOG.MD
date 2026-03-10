@@ -5,6 +5,11 @@ Alla märkbara ändringar ska dokumenteras i denna fil.
 Baserat på [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 och följer [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.27.0] - 2026-03-10
+
+### Tillagt
+- authentication på post queries `post.graphql`
+
 ## [1.26.0] - 2026-01-26
 
 ### Tillagt
