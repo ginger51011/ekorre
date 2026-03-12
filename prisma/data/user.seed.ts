@@ -7,6 +7,7 @@ const defaultUsers: { firstName: string, lastName: string, class: string }[] = [
     { firstName: "Eric", lastName: "Hägerstrand", class: "E23" },
     { firstName: "Axel", lastName: "Andersson", class: "Egammalt" },
     { firstName: "Gustav", lastName: "Abrahamsson", class: "E23" },
+    { firstName: "Pontus", lastName: "Sjöstedt", class: "E21"},
 ]
 const defaultUser = defaultUsers[Math.floor(Math.random() * defaultUsers.length)]
 
