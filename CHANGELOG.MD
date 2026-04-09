@@ -5,7 +5,10 @@ Alla märkbara ändringar ska dokumenteras i denna fil.
 Baserat på [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 och följer [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.30.0] - 2026-03-10
 
+### Tillagt
+- authentication på post queries
 
 ## [1.29.0] - 2026-02-19
 

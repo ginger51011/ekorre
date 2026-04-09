@@ -1,5 +1,5 @@
 import { reduce } from '@/reducers';
-import { hasAccess } from '@/util';
+import { hasAccess, hasAuthenticated } from '@/util';
 import { PostAPI } from '@api/post';
 import { Feature, Post, Resolvers, Utskott } from '@generated/graphql';
 import { postReduce } from '@reducer/post';
@@ -8,13 +8,15 @@ const api = new PostAPI();
 
 const postresolver: Resolvers = {
   Query: {
-    post: async (_, { id }) => {
-      // Should be available to the public, users protected by user resolver
+    post: async (_, { id }, ctx) => {
+      await hasAuthenticated(ctx);
+      
       const res = await api.getPost(id);
       return postReduce(res);
     },
-    posts: async (_, { utskott, includeInactive }) => {
-      // Should be available to the public
+    posts: async (_, { utskott, includeInactive }, ctx) => {
+      await hasAuthenticated(ctx);
+
       if (utskott != null) {
         const res = await api.getPostsFromUtskott(utskott, includeInactive ?? false);
         return reduce(res, postReduce);
@@ -22,7 +24,7 @@ const postresolver: Resolvers = {
       return reduce(await api.getPosts(undefined, includeInactive ?? false), postReduce);
     },
     groupedPosts: async (_, { includeInactive }, ctx) => {
-      // Should be available to the public
+      await hasAuthenticated(ctx);
       // Get all posts
       const allPosts = await api.getPosts(undefined, includeInactive ?? false);
 
@@ -51,7 +53,9 @@ const postresolver: Resolvers = {
     numberOfVolunteers: async (_, { date }) => {
       return api.getNumberOfVolunteers(date ?? undefined);
     },
-    postsFromIDs: async (_, { ids }) => {
+    postsFromIDs: async (_, { ids }, ctx) => {
+      await hasAuthenticated(ctx);
+
       const posts = await api.getPostsFromIDs(ids);
       return reduce(posts, postReduce);
     },
@@ -94,6 +98,8 @@ const postresolver: Resolvers = {
   },
   User: {
     posts: async ({ username }, _, ctx) => {
+      await hasAuthenticated(ctx);
+
       const posts = await api.getPostsForUser(username).catch(() => []);
       const reduced = reduce(posts, postReduce);
 
@@ -106,6 +112,8 @@ const postresolver: Resolvers = {
       return reduced;
     },
     postHistory: async ({ username }, { current }, ctx) => {
+      await hasAuthenticated(ctx);
+      
       const entries = await api.getHistoryEntries(username, undefined, current ?? false);
 
       // Vi omvandlar från DatabaseHistoryEntry user history entries
@@ -131,6 +139,8 @@ const postresolver: Resolvers = {
   },
   Post: {
     history: async ({ id }, { current }, ctx) => {
+      // Requires authentication
+      await hasAuthenticated(ctx);
       const entries = await api.getHistoryEntries(undefined, id, current ?? false);
 
       const a = Promise.all(

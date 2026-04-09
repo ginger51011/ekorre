@@ -120,6 +120,10 @@ export const hasAccess = async (ctx: Context, requirement: Feature | Feature[]):
  * @throws {UnauthenticatedError} If the user is not authenticated
  */
 export const hasAuthenticated = async (ctx: Context): Promise<void> => {
+  if (config.SKIP_ACCESS_CHECKS) {
+    return;
+  }
+
   await ctx.getAccess();
 };
 
