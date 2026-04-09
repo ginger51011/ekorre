@@ -15,7 +15,9 @@ const postresolver: Resolvers = {
       return postReduce(res);
     },
     posts: async (_, { utskott, includeInactive }, ctx) => {
-      await hasAuthenticated(ctx);
+      if (typeof utskott !== "string" || utskott.toLowerCase() !== "styrelsen"){
+        await hasAuthenticated(ctx);
+      }
 
       if (utskott != null) {
         const res = await api.getPostsFromUtskott(utskott, includeInactive ?? false);
