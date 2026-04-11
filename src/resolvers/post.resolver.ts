@@ -15,6 +15,10 @@ const postresolver: Resolvers = {
       return postReduce(res);
     },
     posts: async (_, { utskott, includeInactive }, ctx) => {
+      // this is the only unauthenticated route to go to post history. We do the required checks
+      // here, so we don't need to check if authenticated for the post.
+      // If we were to do that, this fails for unauth users because this calls post history which
+      // would then get sad if unauth.
       if (typeof utskott !== "string" || utskott.toLowerCase() !== "styrelsen"){
         await hasAuthenticated(ctx);
       }
@@ -142,7 +146,7 @@ const postresolver: Resolvers = {
   Post: {
     history: async ({ id }, { current }, ctx) => {
       // Requires authentication
-      await hasAuthenticated(ctx);
+      // see comment in `Query.posts` above about how that's enforced.
       const entries = await api.getHistoryEntries(undefined, id, current ?? false);
 
       const a = Promise.all(
